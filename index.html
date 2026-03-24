@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lumève — Book a Session</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F9F7F4; font-family: 'Helvetica Neue', sans-serif; color: #2C2820; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+  .wrap { max-width: 560px; width: 100%; }
+  .logo { font-family: Georgia, serif; font-size: 28px; letter-spacing: 6px; color: #2C2820; text-align: center; margin-bottom: 6px; }
+  .tagline { font-size: 11px; letter-spacing: 3px; color: #C8B89A; text-align: center; margin-bottom: 8px; }
+  .divider { width: 40px; height: 1px; background: #C8B89A; margin: 0 auto 32px; }
+  .card { background: #fff; border: 0.5px solid #E4DDD4; border-radius: 12px; padding: 32px; }
+  .section-lbl { font-size: 10px; letter-spacing: 2px; color: #C8A87A; display: block; margin-bottom: 16px; }
+  .f { margin-bottom: 18px; }
+  .f label { font-size: 10px; letter-spacing: 2px; color: #9A8E80; display: block; margin-bottom: 7px; }
+  .f input, .f select, .f textarea {
+    width: 100%; border: 0.5px solid #C8B89A; padding: 10px 13px;
+    background: #FDFCFB; font-size: 13px; color: #2C2820;
+    font-family: 'Helvetica Neue', sans-serif; border-radius: 0; outline: none;
+  }
+  .f input:focus, .f select:focus, .f textarea:focus { border-color: #2C2820; }
+  .f textarea { resize: none; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sep { border: none; border-top: 0.5px solid #E4DDD4; margin: 24px 0; }
+  .btn { width: 100%; background: #2C2820; color: #F4EFE8; padding: 14px; font-size: 11px; letter-spacing: 3px; border: none; cursor: pointer; font-family: 'Helvetica Neue', sans-serif; margin-top: 10px; border-radius: 0; }
+  .btn:hover { background: #3C3428; }
+  .btn:disabled { background: #C8B89A; cursor: not-allowed; }
+  .note { font-size: 11px; color: #9A8E80; text-align: center; margin-top: 14px; line-height: 1.7; }
+  .success { display: none; text-align: center; padding: 40px 20px; }
+  .success-mark { width: 52px; height: 52px; border: 1px solid #C8B89A; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 22px; color: #C8B89A; font-family: Georgia, serif; }
+  .success h2 { font-family: Georgia, serif; font-size: 22px; color: #2C2820; margin-bottom: 10px; font-weight: 400; }
+  .success p { font-size: 13px; color: #9A8E80; line-height: 1.8; }
+  .success small { display: block; font-size: 11px; color: #C8B89A; margin-top: 20px; letter-spacing: 1px; }
+  .err { font-size: 11px; color: #c0392b; margin-top: 6px; display: none; }
+  .spinner { display: none; width: 16px; height: 16px; border: 2px solid #F4EFE8; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status-bar { font-size: 11px; color: #9A8E80; text-align: center; margin-top: 10px; min-height: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">LUMÈVE</div>
+  <div class="tagline">BOOK YOUR SESSION</div>
+  <div class="divider"></div>
+
+  <div class="card" id="form-card">
+    <span class="section-lbl">YOUR DETAILS</span>
+    <div class="row2">
+      <div class="f"><label>FIRST NAME *</label><input id="fname" placeholder="Sara" /></div>
+      <div class="f"><label>LAST NAME *</label><input id="lname" placeholder="Al Mansoori" /></div>
+    </div>
+    <div class="row2">
+      <div class="f"><label>EMAIL *</label><input id="email" type="email" placeholder="your@email.com" /></div>
+      <div class="f"><label>WHATSAPP *</label><input id="phone" placeholder="+971 50 000 0000" /></div>
+    </div>
+
+    <hr class="sep" />
+    <span class="section-lbl">SESSION DETAILS</span>
+
+    <div class="f">
+      <label>SESSION TYPE *</label>
+      <select id="stype">
+        <option value="">Select a session...</option>
+        <option>Pre-wedding / Couples</option>
+        <option>Lifestyle / Personal Brand</option>
+        <option>Baby Milestone / Birthday</option>
+        <option>Full Family Experience</option>
+      </select>
+    </div>
+    <div class="f">
+      <label>PACKAGE *</label>
+      <select id="package">
+        <option value="">Select a package...</option>
+        <option value="The Spark — AED 1200">The Spark — AED 1,200 (Couples · 1.5hrs)</option>
+        <option value="The Bloom — AED 950">The Bloom — AED 950 (Baby · 1hr)</option>
+        <option value="The Frame — AED 1500">The Frame — AED 1,500 (Lifestyle · 2hrs)</option>
+        <option value="The Chapter — AED 2200">The Chapter — AED 2,200 (Family · 3hrs)</option>
+      </select>
+    </div>
+    <div class="row2">
+      <div class="f"><label>PREFERRED DATE</label><input id="pdate" type="date" /></div>
+      <div class="f">
+        <label>PREFERRED TIME</label>
+        <select id="ptime">
+          <option>Golden hour — sunrise ~6am</option>
+          <option>Morning ~9am</option>
+          <option>Golden hour — sunset ~5pm</option>
+          <option>Flexible</option>
+        </select>
+      </div>
+    </div>
+    <div class="f">
+      <label>PREFERRED LOCATION</label>
+      <select id="ploc">
+        <option>Suggest a location for me</option>
+        <option>Downtown Dubai / Burj Khalifa area</option>
+        <option>Al Qudra / Desert</option>
+        <option>Dubai Creek / Heritage area</option>
+        <option>Jumeirah Beach / Waterfront</option>
+        <option>Home / indoor session</option>
+        <option>Other (see notes)</option>
+      </select>
+    </div>
+
+    <hr class="sep" />
+    <span class="section-lbl">ANYTHING ELSE?</span>
+
+    <div class="f">
+      <label>YOUR VISION / NOTES</label>
+      <textarea id="vision" rows="4" placeholder="Mood, references, special requests..."></textarea>
+    </div>
+    <div class="f">
+      <label>HOW DID YOU FIND US?</label>
+      <select id="source">
+        <option>Instagram</option>
+        <option>Google</option>
+        <option>Referral</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="err" id="err-msg">Please fill in all required fields (*).</div>
+    <button class="btn" id="submit-btn" onclick="submitBooking()">
+      <span id="btn-text">SUBMIT ENQUIRY</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+    <div class="status-bar" id="status-bar"></div>
+    <p class="note">We respond within 24 hours via email or WhatsApp.<br>A 50% deposit confirms your date.</p>
+  </div>
+
+  <div class="success card" id="success-card">
+    <div class="success-mark">✦</div>
+    <h2>Thank you.</h2>
+    <p>Your enquiry has been received and saved.<br>We'll be in touch within 24 hours.</p>
+    <small>— LUMÈVE</small>
+  </div>
+</div>
+
+<script>
+const NOTION_DB = "2a8bbdad7d8f4af8a887821105cd378b";
+
+const packageFees = {
+  "The Spark — AED 1200": 1200,
+  "The Bloom — AED 950": 950,
+  "The Frame — AED 1500": 1500,
+  "The Chapter — AED 2200": 2200
+};
+
+async function submitBooking() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const stype = document.getElementById('stype').value;
+  const pkg   = document.getElementById('package').value;
+
+  const err = document.getElementById('err-msg');
+  if (!fname || !lname || !email || !phone || !stype || !pkg) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+
+  const pdate  = document.getElementById('pdate').value;
+  const ptime  = document.getElementById('ptime').value;
+  const ploc   = document.getElementById('ploc').value;
+  const vision = document.getElementById('vision').value.trim();
+  const source = document.getElementById('source').value;
+  const clientName = `${fname} ${lname}`;
+  const totalFee = packageFees[pkg] || 0;
+
+  const btn = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const spinner = document.getElementById('spinner');
+  const statusBar = document.getElementById('status-bar');
+
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+  statusBar.textContent = 'Saving to Notion...';
+
+  const prompt = `You are a Notion API assistant. Create a new page in the Lumève Client Bookings database.
+
+Database ID: ${NOTION_DB}
+
+Use the Notion MCP tool to create a page with these properties:
+- "Client Name": "${clientName}"
+- "Status": "New Inquiry"
+- "Session Type": "${stype}"
+- "Package": "${pkg}"
+- "Total Fee": ${totalFee}
+- "Client Email": "${email}"
+- "Client WhatsApp": "${phone}"
+- "Preferred Time": "${ptime}"
+- "Location": "${ploc}"
+- "Vision / Notes": "${vision || 'No notes provided'}"
+- "How They Found Us": "${source}"
+${pdate ? `- "date:Session Date:start": "${pdate}"` : ''}
+${pdate ? `- "date:Session Date:is_datetime": 0` : ''}
+
+Create the page now using the notion-create-pages tool. Respond with ONLY the word "success" if it worked, or "error" if it failed.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        mcp_servers: [{
+          type: "url",
+          url: "https://mcp.notion.com/mcp",
+          name: "notion"
+        }],
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+    const toolResults = (data.content || []).filter(b => b.type === 'mcp_tool_result');
+
+    const worked = toolResults.length > 0 || textBlocks.toLowerCase().includes('success');
+
+    if (worked) {
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+    } else {
+      throw new Error('Notion did not confirm creation');
+    }
+  } catch (e) {
+    statusBar.textContent = 'Something went wrong. Please try again.';
+    btn.disabled = false;
+    btnText.style.display = 'block';
+    spinner.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
